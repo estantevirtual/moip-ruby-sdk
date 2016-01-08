@@ -11,8 +11,16 @@ module Moip2
       Moip2::OrderApi.new(client)
     end
 
+    def multi_order
+      Moip2::MultiOrderApi.new(client)
+    end
+
     def payment
       Moip2::PaymentApi.new(client)
+    end
+
+    def multi_payment
+      Moip2::MultiPaymentApi.new(client)
     end
 
     def invoice
