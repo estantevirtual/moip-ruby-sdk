@@ -3,7 +3,11 @@ module Moip2
   class Response < SimpleDelegator
 
     def initialize(resp, json)
-      super(RecursiveOpenStruct.new(json, :recurse_over_arrays => true))
+      if json.is_a? Hash
+        super(RecursiveOpenStruct.new(json, recurse_over_arrays: true))
+      else
+        super(resp)
+      end
       @resp = resp
     end
 
@@ -15,6 +19,10 @@ module Moip2
       (400..499).include? @resp.code.to_i
     end
 
+    def server_error?
+      (500..599).include? @resp.code.to_i
+    end
+    
   end
 
 end
